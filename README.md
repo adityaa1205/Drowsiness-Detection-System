@@ -1,5 +1,4 @@
 # Drowsiness Detection System
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/adityaa1205/Drowsiness-Detection-System.git)
 
 This project is a real-time drowsiness detection system that utilizes a webcam to monitor a person's eyes. It analyzes eye blink patterns to determine if the user is active, drowsy, or sleeping, and provides corresponding audible alerts to help prevent accidents caused by fatigue.
 
