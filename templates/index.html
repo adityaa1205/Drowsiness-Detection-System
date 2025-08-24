@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Drowsiness Detection</title>
+</head>
+<body>
+  <h1>Drowsiness Detection</h1>
+  <video id="video" width="400" autoplay></video>
+  <p id="status">Loading...</p>
+  <script>
+    const video = document.getElementById("video");
+    const statusEl = document.getElementById("status");
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => { video.srcObject = stream });
+
+    setInterval(() => {
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext("2d").drawImage(video, 0, 0);
+
+      const imageData = canvas.toDataURL("image/jpeg").split(",")[1];
+
+      fetch("/detect", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ image: imageData })
+      })
+      .then(res => res.json())
+      .then(data => {
+        statusEl.innerText = data.status;
+        if (data.status === "SLEEPING") {
+          new Audio("/static/sleeping.mp3").play();
+        }
+      });
+    }, 2000); // every 2 seconds
+  </script>
+</body>
+</html>
