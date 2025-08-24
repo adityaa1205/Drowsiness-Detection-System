@@ -1,6 +1,6 @@
-flask
+dlib-bin
 opencv-python-headless
-numpy
-dlib
+flask
 imutils
+numpy
 gunicorn
