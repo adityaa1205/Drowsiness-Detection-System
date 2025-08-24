@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import cv2
 import numpy as np
 import dlib
@@ -25,6 +25,12 @@ def blinked(a, b, c, d, e, f):
     else:
         return 0
 
+# ✅ Homepage route
+@app.route("/")
+def index():
+    return render_template("index.html")  # will look for templates/index.html
+
+# ✅ Detection API
 @app.route("/detect", methods=["POST"])
 def detect():
     data = request.json
